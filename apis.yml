@@ -1,0 +1,66 @@
+aid: lifetise
+url: https://raw.githubusercontent.com/api-evangelist/lifetise/refs/heads/main/apis.yml
+name: Coadjute
+kind: company
+description: >-
+  Coadjute Ltd is a London-based property technology company that operates
+  a shared network for the UK residential property market, connecting estate agents,
+  conveyancers, mortgage brokers, lenders and consumers through the CRM and case-management
+  systems they already use rather than through any multiple listing service — the UK
+  has no MLS and no RESO adoption. Built on R3 Corda distributed ledger technology and
+  now positioned as a fully managed AML and compliance platform for UK property, Coadjute
+  sits in the middle of the transaction as connective infrastructure: property packs,
+  material information, shareable AML checks and status data moving between parties.
+  Its API posture is partner-only and not publicly reachable. Coadjute's own Partner
+  Terms of Service govern "the Coadjute Applet, APIs, Connector, Sandbox, DLT Application"
+  under an Order Form and Subscription Term, and its Network Acceptable Use Policy names
+  a "Partner Cloud API" and an "End User App Plugin" — but the developer portal that
+  once published an API catalogue at developer.coadjute.com returns HTTP 502 as of
+  2026-07-26, api.coadjute.com answers only with authenticated JSON error envelopes,
+  and no OpenAPI, Postman collection, SDK or public reference could be retrieved. The
+  only publicly fetchable machine-readable contract is the Auth0-backed OpenID Connect
+  discovery document at auth.coadjute.com. Coadjute publishes no open data; the open
+  property-data layer in its home market belongs to HM Land Registry and Ordnance Survey,
+  not to Coadjute.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/groq.png
+tags:
+- Real Estate
+- United Kingdom
+- PropTech
+- Property Transactions
+- Conveyancing
+- AML
+- Compliance
+- Distributed Ledger
+- Estate Agents
+- Mortgage
+created: '2026-07-26'
+modified: '2026-07-26'
+specificationVersion: '0.19'
+apis: []
+common:
+- type: Website
+  url: https://www.coadjute.com/
+- type: Authentication
+  url: authentication/coadjute-openid-configuration.json
+- type: StatusPage
+  url: https://status.coadjute.com
+- type: TermsOfService
+  url: https://www.coadjute.com/coadjute-partner-terms-of-service
+- type: AcceptableUsePolicy
+  url: https://www.coadjute.com/coadjute-network-acceptable-use-policy
+- type: PrivacyPolicy
+  url: https://www.coadjute.com/privacy-statement
+- type: Pricing
+  url: https://www.coadjute.com/pricing
+- type: Blog
+  url: https://www.coadjute.com/resources
+- type: GitHubOrganization
+  url: https://github.com/coadjute
+- type: LinkedIn
+  url: https://www.linkedin.com/company/coadjute/
+- type: Contact
+  url: https://www.coadjute.com/contact-us
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

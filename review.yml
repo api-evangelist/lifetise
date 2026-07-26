@@ -1,0 +1,308 @@
+aid: lifetise
+name: Coadjute
+review:
+  question: Does Coadjute publish a reachable, documented public API surface for the
+    UK property market, and does it carry any RESO posture?
+  answer: false
+  date: '2026-07-26'
+  reviewer: API Evangelist
+  homeMarket: United Kingdom
+  tier: mls-data-infrastructure
+
+recordIntegrity:
+  slugMismatch: true
+  note: |
+    This repo was commissioned with SLUG "lifetise" but ORGANIZATION "Coadjute" and
+    PRIMARY DOMAIN coadjute.com. Every fact recorded here was fetched from
+    coadjute.com and its subdomains and describes Coadjute Ltd (company number
+    11559616, registered in England). "Lifetise" is a separate name and lifetise.com
+    is a separate host (probed 2026-07-26, HTTP 202, no title served). The slug was
+    kept as instructed so the workflow stays addressable, but the aid/slug should
+    almost certainly be "coadjute" — flagged for the parent pipeline to reconcile
+    before this record is published.
+
+sectorPosture:
+  homeMarket: United Kingdom
+  marketSeam: |
+    The UK has no MLS and no cooperative listing standard. Residential listings reach
+    consumers through two portals (Rightmove, Zoopla) via agency CRM software (Reapit,
+    Alto, Street, Dezrez, MRI). The open layer in this market is governmental — HM Land
+    Registry Price Paid / ownership data and Ordnance Survey addressing — not private.
+    Coadjute is a private network that connects the CRMs and case-management systems to
+    each other; it is not an open-data publisher and it is not an MLS.
+
+  resoPosture:
+    verbatim: "No RESO reference found."
+    certified: false
+    certificationType: none
+    dataDictionaryVersion: null
+    webApiCertified: false
+    upiUsed: false
+    evidence: |
+      No mention of RESO, the RESO Data Dictionary, RESO Web API, OData, $metadata, or
+      the RESO Universal Property Identifier (UPI) appears anywhere on coadjute.com, on
+      the archived developer portal content, or in Coadjute's Partner Terms of Service
+      and Network Acceptable Use Policy. A targeted web search for Coadjute + RESO
+      returned only generic RESO material and nothing tying Coadjute to the standard.
+      RESO certification is a National Association of REALTORS-driven, US-market
+      construct; the UK has no MLS to certify against. Absence here is the honest and
+      expected finding, not a gap in the probe.
+    probes:
+    - url: https://api.coadjute.com/$metadata
+      status: 404
+      note: No OData service document or metadata; the host answers with a JSON error envelope.
+
+  accessGate:
+    gate: partner-only
+    gated: true
+    whatADeveloperMustSignOrJoin: |
+      A commercial partner relationship with Coadjute. Coadjute's own Partner Terms of
+      Service (last modified January 2023) state verbatim that they "govern your use of
+      the Coadjute Applet, APIs, Connector, Sandbox, DLT Application and your access to
+      the Coadjute Network together with the provision by us of associated support,
+      documentation and ancillary services (collectively, the 'Coadjute Platform')" and
+      bind access to an Order Form, a Subscription Term, a Service Level Agreement and a
+      Data Protection Addendum. The Coadjute Network Acceptable Use Policy opens with
+      "If you use the Coadjute Network via our Partner Cloud API or End User App Plugin
+      you agree to this Acceptable Use Policy." There is no self-serve signup: every
+      public conversion path on coadjute.com is "Book a demo" or "Login". A third-party
+      CRM integration page (Street) instructs agents to email street@coadjute.com to
+      "enable webhooks and obtain your API token" — i.e. credentials are issued by a
+      human, per partner.
+    selfServeSignup: false
+    sandboxExists: true
+    sandboxNote: |
+      A "Sandbox" is named as a component of the Coadjute Platform in the Partner Terms
+      of Service, and press coverage describes a lender completing a sandbox project.
+      No sandbox host, signup page, or documentation is publicly reachable.
+    publicDocumentation: false
+
+  openData:
+    open_data: false
+    note: |
+      Coadjute publishes no open dataset and no unlicensed, publicly callable endpoint.
+      All property and AML data on the network is transaction-party data moving under
+      partner contract and DLT permissioning. The genuine UK open-data counterweight
+      (HM Land Registry Price Paid, Ordnance Survey open products) sits with government
+      publishers, not with Coadjute, and none of it is republished by Coadjute in any
+      form observable from outside.
+
+  authModel:
+    scheme: OAuth 2.0 / OpenID Connect (Auth0), plus per-partner API tokens issued manually
+    evidence: |
+      https://auth.coadjute.com/.well-known/openid-configuration returns HTTP 200 and a
+      valid OIDC discovery document (saved verbatim at
+      authentication/coadjute-openid-configuration.json). Issuer is
+      https://auth.coadjute.com/, served through Cloudflare with Auth0 response headers
+      (x-auth0-l, x-auth0-requestid). Advertised grant types include authorization_code,
+      client_credentials, refresh_token, password, implicit, device_code,
+      token-exchange and jwt-bearer; PKCE S256 is supported; MFA challenge and dynamic
+      client registration endpoints are advertised. https://status.coadjute.com lists
+      "Auth0 User Authentication" as a first-class platform component, independently
+      confirming Auth0 as the identity layer. The NeosAlpha case study for Coadjute
+      describes a Kong API gateway with an "OAuth2.0-based security model" across
+      public-facing APIs. Separately, Street's integration page shows partners are given
+      an "API token" by Coadjute support, so at least one credential path is
+      manually provisioned rather than OIDC-negotiated.
+    scopesObserved:
+    - openid
+    - profile
+    - offline_access
+    - email
+    - phone
+    - address
+    scopesNote: |
+      These are the standard OIDC scopes advertised by the Auth0 tenant. No Coadjute
+      product/API scopes are published anywhere public — do not read these as the
+      network's authorization model.
+
+findings:
+  summary: |
+    Coadjute is a real API-centric business with no reachable public API. It operates a
+    shared UK property network on R3 Corda DLT, integrated into agency CRM and
+    conveyancing case-management systems, and its current market positioning (2026) is
+    "The complete AML platform for UK property. Built on ISO 31000." The company's own
+    legal documents name APIs, a Connector, a Sandbox and a "Partner Cloud API" — so an
+    API product demonstrably exists and is contractually described — but every developer
+    entry point is closed. The developer portal at developer.coadjute.com, which the
+    Internet Archive shows was a live Drupal developer portal in 2020-2021 with an "API
+    Catalogue", a "Get Connected" guide, and user registration, now returns HTTP 502 on
+    every path probed. api.coadjute.com is live and answers with structured JSON error
+    envelopes (404 "Resource Not Found", 401 "Access Denied") but exposes no
+    specification, no service document and no anonymous surface. No OpenAPI, no
+    AsyncAPI, no OData $metadata, no Postman collection and no SDK could be harvested.
+    The GitHub organization github.com/coadjute exists (created 2020-10-02) with zero
+    public repositories. This is the archetype of the tier: a well-engineered
+    listing/transaction data infrastructure API that almost nobody outside a signed
+    partner can call — and, unlike its US counterparts, without even a certification
+    body to point at, because the UK has no MLS and no RESO.
+  companyFacts:
+    legalName: Coadjute Ltd
+    companyNumber: '11559616'
+    registeredOffice: Unit 114a Business Design Centre, 52 Upper Street, London N1 0QH, United Kingdom
+    currentOffice: The Rutherford Building, 43-44 Hoxton Square, London N1 6PB, United Kingdom
+    contact: connect@coadjute.com
+    technology: R3 Corda distributed ledger; blockchain confidential ledger for AML verification records
+    positioning: The complete AML platform for UK property. Built on ISO 31000.
+    audiences:
+    - Estate agents
+    - Conveyancers
+    - MLROs
+    - Buyers and sellers
+    integrationSurface: |
+      Coadjute connects existing property software rather than replacing it; publicly
+      documented CRM integrations include Street, and press coverage names Reapit,
+      Dezrez, MRI, Redbrick and VTUK. Coverage of MLSs or boards is not applicable —
+      there are none in the UK.
+  mlsOrBoardCoverage: none (United Kingdom has no MLS or board structure)
+  webhooks:
+    exists: likely (partner-provisioned)
+    documented: false
+    note: |
+      Street's Coadjute integration page tells agents to contact street@coadjute.com for
+      a guide on "how to enable webhooks and obtain your API token." Webhooks therefore
+      exist for partners, but no event catalogue, payload schema or webhook
+      documentation is published by Coadjute.
+  sdks:
+    exists: false
+    note: npm registry search for "coadjute" returned 0 packages; github.com/coadjute has 0 public repos.
+  postman:
+    exists: false
+    note: Postman public search for "coadjute" returned 0 workspaces, 0 collections, 0 APIs, 0 specifications.
+  bugBounty:
+    referenced: true
+    reachable: false
+    note: |
+      The Network Acceptable Use Policy carves out "Coadjute's published Bug Bounty
+      program" from its reverse-engineering prohibition, but no bug bounty page,
+      security.txt or disclosure policy is published — https://www.coadjute.com/.well-known/security.txt
+      returns 404 and https://www.coadjute.com/bug-bounty returns 404.
+
+probes:
+- url: https://coadjute.com
+  status: 200
+  note: Redirects to https://www.coadjute.com (HubSpot-hosted). AML platform positioning; no developer or API navigation.
+- url: https://www.coadjute.com/sitemap.xml
+  status: 200
+  note: 95 URLs. No /developers, /api, /docs or developer-facing page of any kind.
+- url: https://www.coadjute.com/our-technology
+  status: 200
+  note: Describes blockchain confidential ledger, selective disclosure, ISO 31000. No API, OAuth, RESO, Land Registry or Ordnance Survey references.
+- url: https://www.coadjute.com/pricing
+  status: 200
+  note: '"Free for property professionals" via a disbursement model; every CTA is "Book a demo". No API pricing, no developer plan.'
+- url: https://www.coadjute.com/coadjute-partner-terms-of-service
+  status: 200
+  note: Primary access-gate evidence. Governs Applet, APIs, Connector, Sandbox, DLT Application under Order Form + Subscription Term. Last modified January 2023.
+- url: https://www.coadjute.com/coadjute-network-acceptable-use-policy
+  status: 200
+  note: Names the "Partner Cloud API" and "End User App Plugin"; references a published Bug Bounty program.
+- url: https://developer.coadjute.com/
+  status: 502
+  note: Developer portal host resolves but the origin is failing. Same 502 on /contact, /docs, /api, /apis, /openapi.json.
+- url: https://developer.coadjute.com/home
+  status: 502
+  note: |
+    Live probe 502. Internet Archive snapshot 20210420143223 shows a working Drupal
+    "Coadjute Devportal" — "Welcome to the Coadjute Developer Portal", "Explore API
+    Catalogue", links to /api-catalog/api-catalogue, /docs/get-connected/get-connected,
+    /docs/how-to-use/home, /user/register, /user/login, and developer@coadjute.com.
+    None of those catalogue or docs paths were ever archived, so no specification could
+    be recovered even historically.
+- url: http://api.developer.coadjute.com/
+  status: 0
+  note: Appears in the Internet Archive CDX index (2023) but does not resolve today (DNS/connection failure).
+- url: http://portal.developer.coadjute.com/
+  status: 0
+  note: Appears in the Internet Archive CDX index (2023, 308) but does not resolve today.
+- url: https://api.coadjute.com/
+  status: 404
+  note: 'Live gateway. JSON envelope: {"code":"404","message":"Resource Not Found","errorCode":"3099"}. Azure Request-Context header present.'
+- url: https://api.coadjute.com/.well-known/openid-configuration
+  status: 401
+  note: '"Access Denied" JSON envelope — the gateway authenticates even discovery paths. Confirms a real, live, fully gated API.'
+- url: https://api.coadjute.com/openapi.json
+  status: 404
+  note: No specification served.
+- url: https://api.coadjute.com/swagger.json
+  status: 404
+  note: No specification served.
+- url: https://api.coadjute.com/$metadata
+  status: 404
+  note: No OData metadata document — consistent with no RESO/OData implementation.
+- url: https://auth.coadjute.com/.well-known/openid-configuration
+  status: 200
+  note: Auth0 OIDC discovery document. Harvested verbatim to authentication/coadjute-openid-configuration.json on 2026-07-26.
+- url: https://auth.coadjute.com/.well-known/jwks.json
+  status: 200
+  note: Public JWKS served; not saved (rotating key material).
+- url: https://app.coadjute.com/
+  status: 200
+  note: '"Coadjute Workspace" SPA (customer login). Its JS bundle references https://acf.coadjute.com, which does not resolve publicly.'
+- url: https://acf.coadjute.com/
+  status: 0
+  note: Referenced by the workspace bundle; no public DNS/connection.
+- url: https://status.coadjute.com
+  status: 200
+  note: 'Atlassian Statuspage. Components: Web App, Mobile App, Auth0 User Authentication. Notably, no API component is published.'
+- url: https://sandbox.coadjute.com
+  status: 0
+  note: Does not resolve, despite "Sandbox" being a contracted platform component.
+- url: https://docs.coadjute.com
+  status: 0
+  note: Does not resolve.
+- url: https://developers.coadjute.com
+  status: 0
+  note: Does not resolve.
+- url: https://www.coadjute.com/developers
+  status: 404
+- url: https://www.coadjute.com/api
+  status: 404
+- url: https://www.coadjute.com/docs
+  status: 404
+- url: https://www.coadjute.com/openapi.json
+  status: 404
+- url: https://www.coadjute.com/swagger.json
+  status: 404
+- url: https://www.coadjute.com/.well-known/security.txt
+  status: 404
+- url: https://api.github.com/orgs/coadjute
+  status: 200
+  note: Organization exists, created 2020-10-02, 0 public repositories.
+
+sources:
+- url: https://www.coadjute.com/
+  type: Website
+  note: Current positioning, audiences, contact, registered address.
+- url: https://www.coadjute.com/coadjute-partner-terms-of-service
+  type: TermsOfService
+  note: The document a developer's employer must actually sign to reach the APIs.
+- url: https://www.coadjute.com/coadjute-network-acceptable-use-policy
+  type: AcceptableUsePolicy
+  note: Names the Partner Cloud API and End User App Plugin.
+- url: https://auth.coadjute.com/.well-known/openid-configuration
+  type: OpenIDConnectDiscovery
+  note: The only publicly fetchable machine-readable contract Coadjute serves.
+- url: https://status.coadjute.com
+  type: StatusPage
+  note: Confirms Auth0 as the identity component; no API component listed.
+- url: https://www.street.co.uk/integrations/coadjute
+  type: Documentation
+  note: Third-party CRM integration page — "webhooks and obtain your API token" via street@coadjute.com.
+- url: https://neosalpha.com/case-studies/coadjute-real-estate-api-gateway-consulting-and-automation/
+  type: CaseStudy
+  note: Vendor case study describing Kong API gateway, OAuth 2.0 security model, CI/CD, and an intended API marketplace.
+
+actions:
+  apisYmlCreated: true
+  apisListed: 0
+  apisListedReason: |
+    No Coadjute API has a public documentation page or a documented base URL. The
+    "Partner Cloud API" is named only in a legal policy, and the developer portal that
+    once catalogued the APIs is returning 502. Listing an API entry would require
+    inventing a humanURL or a baseURL, so apis[] is deliberately empty.
+  openapiHarvested: false
+  specsCount: 0
+  artifactsSaved:
+  - authentication/coadjute-openid-configuration.json
+  status: built-stub
