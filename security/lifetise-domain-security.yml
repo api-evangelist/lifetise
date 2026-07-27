@@ -1,0 +1,64 @@
+generated: '2026-07-26'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml hosts plus every Coadjute subdomain found
+  in the review probe log
+hosts:
+- host: www.coadjute.com
+  role: marketing site (HubSpot)
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 19 17:44:20 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: api.coadjute.com
+  role: partner API gateway
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Dec 25 10:01:47 2026 GMT
+  hsts: false
+  http_status: 404
+  note: Answers a JSON error envelope to anonymous requests; no HSTS header returned.
+- host: auth.coadjute.com
+  role: identity provider (Auth0 tenant)
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 12 02:44:26 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+  hsts_include_subdomains: true
+- host: app.coadjute.com
+  role: customer web application
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  2 23:59:59 2026 GMT
+  hsts: false
+  http_status: 200
+- host: status.coadjute.com
+  role: status page (Atlassian Statuspage)
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  4 08:22:32 2026 GMT
+  hsts: true
+  hsts_max_age: 259200
+- host: developer.coadjute.com
+  role: retired developer portal
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Dec 25 10:01:47 2026 GMT
+  hsts: false
+  http_status: 502
+  note: TLS terminates cleanly but the origin is failing; certificate is shared with
+    api.coadjute.com.
+domains:
+- domain: coadjute.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: quarantine
+observations:
+- HSTS is inconsistent across the estate — present on the marketing site, the identity
+  tenant and the status page, absent on the API gateway and the customer application.
+- No CAA records are published, so certificate issuance is unconstrained.
+- DNSSEC is not enabled on coadjute.com.
+- DMARC is published at p=quarantine rather than p=reject.

@@ -1,0 +1,55 @@
+# Coadjute
+
+> Coadjute Ltd is a London-based property technology company running a shared network for the UK residential property market. It connects estate agents, conveyancers, mortgage brokers, lenders and consumers through the CRM and case-management systems they already use — the UK has no MLS and no RESO adoption — and is now positioned as a fully managed AML and compliance platform for UK property, built on R3 Corda distributed ledger technology. Its API posture is partner-only: a "Partner Cloud API" exists contractually, but no public specification, portal, SDK or self-serve signup is reachable.
+
+## Status
+
+- Access gate: partner-only. Access requires a signed Coadjute Partner Terms of Service with an Order Form and Subscription Term; API tokens are provisioned by Coadjute staff per partner.
+- Public API specification: none. api.coadjute.com is live but authenticates every path including /.well-known/*; developer.coadjute.com (which carried an API Catalogue in 2020-2021) returns HTTP 502; no OpenAPI, AsyncAPI, OData $metadata, Postman collection or SDK could be retrieved.
+- Only anonymous machine-readable contract: the Auth0-backed OpenID Connect discovery document at auth.coadjute.com.
+- Open data: none. The open UK property-data layer belongs to HM Land Registry and Ordnance Survey, not to Coadjute.
+
+## APIs
+
+- [Partner Cloud API](https://www.coadjute.com/coadjute-network-acceptable-use-policy): Named in Coadjute's Network Acceptable Use Policy alongside an "End User App Plugin". No public documentation, base URL or specification is published; the live gateway host is api.coadjute.com and answers 401/404 JSON envelopes to anonymous callers.
+
+## Identity and access
+
+- [OpenID Connect discovery](https://auth.coadjute.com/.well-known/openid-configuration): Auth0 tenant, issuer https://auth.coadjute.com/.
+- [OAuth 2.0 Authorization Server Metadata](https://auth.coadjute.com/.well-known/oauth-authorization-server): RFC 8414 document for the same tenant.
+- Grants advertised: authorization_code (PKCE S256), client_credentials, refresh_token, password, implicit, device_code, token-exchange, jwt-bearer. DPoP (ES256), CIBA, back-channel logout and dynamic client registration are advertised.
+- Scopes advertised are the standard OIDC identity set (openid, profile, email, phone, address, offline_access and Auth0 claim scopes). No Coadjute product/API scopes are published anywhere public.
+
+## Artifacts
+
+- [apis.yml](https://raw.githubusercontent.com/api-evangelist/lifetise/refs/heads/main/apis.yml): APIs.json index for this provider.
+- [Authentication profile](https://raw.githubusercontent.com/api-evangelist/lifetise/refs/heads/main/authentication/lifetise-authentication.yml)
+- [OAuth scopes](https://raw.githubusercontent.com/api-evangelist/lifetise/refs/heads/main/scopes/lifetise-scopes.yml)
+- [Well-known index](https://raw.githubusercontent.com/api-evangelist/lifetise/refs/heads/main/well-known/lifetise-well-known.yml)
+- [Conformance](https://raw.githubusercontent.com/api-evangelist/lifetise/refs/heads/main/conformance/lifetise-conformance.yml)
+- [Lifecycle and SLA](https://raw.githubusercontent.com/api-evangelist/lifetise/refs/heads/main/lifecycle/lifetise-lifecycle.yml)
+- [Domain security](https://raw.githubusercontent.com/api-evangelist/lifetise/refs/heads/main/security/lifetise-domain-security.yml)
+- [Review log](https://raw.githubusercontent.com/api-evangelist/lifetise/refs/heads/main/review.yml)
+
+## Company
+
+- [Website](https://www.coadjute.com/)
+- [Platform overview](https://www.coadjute.com/platform-overview)
+- [Our technology](https://www.coadjute.com/our-technology): blockchain confidential ledger, ISO 31000 positioning, Cyber Essentials certified badge.
+- [Help centre](https://www.coadjute.com/help-centre)
+- [Incident severity levels and SLAs](https://www.coadjute.com/incident-severity-levels-and-slas)
+- [Status page](https://status.coadjute.com): components are Web App, Mobile App and Auth0 User Authentication — no API component is published.
+- [Pricing](https://www.coadjute.com/pricing): free for property professionals via a disbursement model; every CTA is "Book a demo".
+- [Partner Terms of Service](https://www.coadjute.com/coadjute-partner-terms-of-service): governs the Applet, APIs, Connector, Sandbox and DLT Application.
+- [Network Acceptable Use Policy](https://www.coadjute.com/coadjute-network-acceptable-use-policy)
+- [Data Protection Addendum](https://www.coadjute.com/coadjute-data-protection-addendum)
+- [Privacy statement](https://www.coadjute.com/privacy-statement)
+- [Blog and resources](https://www.coadjute.com/resources)
+- [GitHub organization](https://github.com/coadjute): exists since 2020-10-02 with zero public repositories.
+
+## Optional
+
+- No SDKs: npm, RubyGems, Packagist and NuGet searches for "coadjute" return nothing and the GitHub organization is empty.
+- No public Postman workspace, collection or specification.
+- No MCP server, agent manifest or /llms.txt is published by Coadjute; this file is generated by API Evangelist from the public record.
+- Webhooks exist for partners (a third-party CRM integration page tells agents to email Coadjute to enable them) but no event catalogue or payload schema is published.

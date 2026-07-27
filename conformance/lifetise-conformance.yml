@@ -1,0 +1,127 @@
+generated: '2026-07-26'
+method: searched
+sources:
+- https://auth.coadjute.com/.well-known/openid-configuration
+- https://auth.coadjute.com/.well-known/oauth-authorization-server
+- https://www.coadjute.com/our-technology
+- https://www.coadjute.com/coadjute-network-acceptable-use-policy
+note: |
+  Every "conforms: true" below is evidenced from a document that could actually be
+  fetched — overwhelmingly the Auth0 identity tenant, which is the only anonymous
+  machine-readable surface Coadjute serves. The Partner Cloud API itself is fully gated,
+  so no statement can be made about its payload, error or pagination conventions; those
+  rows are recorded as unknown rather than false.
+standards:
+- id: oauth2
+  conforms: true
+  evidence: RFC 8414 authorization server metadata served at auth.coadjute.com with
+    authorization, token, revocation and device endpoints.
+- id: rfc8414-authorization-server-metadata
+  conforms: true
+  evidence: /.well-known/oauth-authorization-server returns 200 with full metadata.
+- id: oidc-discovery
+  conforms: true
+  evidence: /.well-known/openid-configuration returns 200; issuer https://auth.coadjute.com/.
+- id: oidc-core
+  conforms: true
+  evidence: id_token signing algs (RS256/PS256/HS256), userinfo endpoint, standard claim set.
+- id: rfc7636-pkce
+  conforms: true
+  evidence: code_challenge_methods_supported [S256, plain].
+- id: rfc8628-device-authorization-grant
+  conforms: true
+  evidence: device_authorization_endpoint advertised; urn:ietf:params:oauth:grant-type:device_code supported.
+- id: rfc8693-token-exchange
+  conforms: true
+  evidence: urn:ietf:params:oauth:grant-type:token-exchange in grant_types_supported.
+- id: rfc7523-jwt-bearer
+  conforms: true
+  evidence: urn:ietf:params:oauth:grant-type:jwt-bearer in grant_types_supported.
+- id: rfc7591-dynamic-client-registration
+  conforms: true
+  evidence: registration_endpoint https://auth.coadjute.com/oidc/register advertised.
+- id: rfc7009-token-revocation
+  conforms: true
+  evidence: revocation_endpoint https://auth.coadjute.com/oauth/revoke advertised.
+- id: rfc9449-dpop
+  conforms: true
+  evidence: dpop_signing_alg_values_supported [ES256].
+- id: openid-ciba
+  conforms: true
+  evidence: backchannel_authentication_endpoint advertised with poll delivery mode.
+- id: oidc-backchannel-logout
+  conforms: true
+  evidence: backchannel_logout_supported true, backchannel_logout_session_supported true.
+- id: rfc7517-jwks
+  conforms: true
+  evidence: jwks_uri https://auth.coadjute.com/.well-known/jwks.json returns 200.
+- id: rfc9126-pushed-authorization-requests
+  conforms: false
+  evidence: no pushed_authorization_request_endpoint in the discovery document.
+- id: fapi
+  conforms: false
+  evidence: PAR is absent, implicit and password grants remain enabled, and HS256 is an
+    accepted id_token signing alg — none of which is consistent with a FAPI profile.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: no /.well-known/security.txt on www, auth or api hosts.
+- id: rfc9727-api-catalog
+  conforms: false
+  evidence: /.well-known/api-catalog returns 404 (www, auth) and 401 (api).
+- id: openapi
+  conforms: false
+  evidence: no OpenAPI served on api.coadjute.com, developer.coadjute.com (502) or the
+    marketing host; no spec recoverable from the Internet Archive either.
+- id: reso-data-dictionary
+  conforms: false
+  evidence: no RESO reference anywhere on Coadjute's surface; the UK has no MLS to
+    certify against.
+- id: reso-web-api
+  conforms: false
+  evidence: no OData service document; https://api.coadjute.com/$metadata returns 404.
+- id: odata
+  conforms: false
+  evidence: $metadata 404.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: 'the gateway''s anonymous error envelope is a bespoke JSON shape —
+    {"code":"404","message":"Resource Not Found","errorCode":"3099"} — not
+    application/problem+json.'
+- id: asyncapi
+  conforms: unknown
+  evidence: webhooks are provisioned for partners (per Street's integration page) but no
+    event catalogue, payload schema or AsyncAPI document is published.
+- id: iso-31000
+  conforms: claimed
+  evidence: 'Coadjute''s own positioning, verbatim: "The complete AML platform for UK
+    property. Built on ISO 31000." ISO 31000 is a risk-management guidance standard and
+    is not certifiable, so this is a published claim, not a certification.'
+compliance_programs:
+- name: Cyber Essentials
+  status: certified
+  scheme: NCSC Cyber Essentials (IASME)
+  evidence: |
+    Site-wide footer badge with alt text "Cyber Essentials Certified" linking to a
+    Blockmark certificate registry entry
+    (https://registry.blockmarktech.com/certificates/938d1119-b32f-42c6-8f1a-dc379c4cd678/).
+    The registry page itself is behind a bot challenge and could not be read to confirm
+    scope or expiry.
+  url: https://www.coadjute.com/our-technology
+- name: ISO 31000
+  status: claimed
+  evidence: '"Built on ISO 31000. Every risk identified. Every decision defensible."'
+  url: https://www.coadjute.com/our-technology
+- name: UK GDPR / Data Protection
+  status: documented
+  evidence: Coadjute publishes a Data Protection Addendum and a Privacy Statement that
+    form part of the partner contract.
+  url: https://www.coadjute.com/coadjute-data-protection-addendum
+not_found:
+- SOC 2
+- ISO 27001
+- ISO 27017
+- ISO 27018
+- PCI DSS
+- HIPAA
+- FedRAMP
+- CSA STAR

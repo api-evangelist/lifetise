@@ -1,0 +1,65 @@
+generated: '2026-07-26'
+method: searched
+source: https://auth.coadjute.com/.well-known/openid-configuration
+raw: well-known/lifetise-openid-configuration.json
+note: |
+  These are the scopes advertised by Coadjute's Auth0 identity tenant — the standard
+  OpenID Connect scope set plus Auth0's per-claim scopes. They are the real, publicly
+  fetchable scope surface, but they describe identity claims, NOT the authorization
+  model of the Coadjute Network's Partner Cloud API. No Coadjute product/API scopes are
+  published anywhere public: api.coadjute.com answers 401 to every anonymous request and
+  developer.coadjute.com (which once carried an API Catalogue) returns 502. Do not read
+  this list as the network's permission model.
+scope_surface: identity-only
+product_scopes_published: false
+schemes:
+- name: coadjute-oidc
+  source: well-known/lifetise-openid-configuration.json
+  issuer: https://auth.coadjute.com/
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.coadjute.com/authorize
+    tokenUrl: https://auth.coadjute.com/oauth/token
+    pkce: S256
+  - flow: clientCredentials
+    tokenUrl: https://auth.coadjute.com/oauth/token
+  - flow: deviceCode
+    deviceAuthorizationUrl: https://auth.coadjute.com/oauth/device/code
+    tokenUrl: https://auth.coadjute.com/oauth/token
+  - flow: implicit
+    authorizationUrl: https://auth.coadjute.com/authorize
+scopes:
+- scope: openid
+  description: Request an ID token — baseline OpenID Connect authentication.
+  standard: OIDC Core 1.0
+- scope: profile
+  description: Access the end user's default profile claims.
+  standard: OIDC Core 1.0
+- scope: offline_access
+  description: Issue a refresh token for long-lived access.
+  standard: OIDC Core 1.0
+- scope: name
+  description: Access the end user's full name claim.
+- scope: given_name
+  description: Access the end user's given name claim.
+- scope: family_name
+  description: Access the end user's family name claim.
+- scope: nickname
+  description: Access the end user's nickname claim.
+- scope: email
+  description: Access the end user's email address claim.
+  standard: OIDC Core 1.0
+- scope: email_verified
+  description: Access whether the end user's email address has been verified.
+- scope: picture
+  description: Access the end user's profile picture claim.
+- scope: created_at
+  description: Access the end user's account creation timestamp (Auth0 claim).
+- scope: identities
+  description: Access the end user's linked identity providers (Auth0 claim).
+- scope: phone
+  description: Access the end user's phone number claim.
+  standard: OIDC Core 1.0
+- scope: address
+  description: Access the end user's address claim.
+  standard: OIDC Core 1.0

@@ -1,0 +1,80 @@
+generated: '2026-07-26'
+method: searched
+sources:
+- https://status.coadjute.com
+- https://www.coadjute.com/incident-severity-levels-and-slas
+- https://www.coadjute.com/coadjute-partner-terms-of-service
+versioning:
+  scheme: unknown
+  current: null
+  docs: null
+  note: |
+    No versioning policy is published. The Partner Cloud API is named only in Coadjute's
+    legal documents; the developer portal that once carried an API Catalogue
+    (developer.coadjute.com) returns HTTP 502 and no version identifiers appear on any
+    reachable surface.
+deprecation:
+  policy_url: null
+  sunset_header: unknown
+  note: No deprecation or sunset policy is published. Change management is handled inside
+    the Order Form / Subscription Term, which is not public.
+sla:
+  url: https://www.coadjute.com/incident-severity-levels-and-slas
+  uptime_target: null
+  note: Coadjute publishes severity levels and response/recovery targets but no
+    availability percentage. A Service Level Agreement is referenced as a contractual
+    schedule in the Partner Terms of Service.
+  severity_levels:
+  - id: S1
+    label: Critical
+    definition: Emergency situations where partners lose complete access to the Coadjute
+      Network through either API or Web Application
+    response_time: Within 30 minutes
+    recovery_target: Rapid restoration, aiming for a few hours
+  - id: S2
+    label: Significant
+    definition: Major performance issues or functional unavailability within the API or
+      Web Application, requiring manual workarounds
+    response_time: Within 2 business hours
+    recovery_target: Goal to resolve within one business day
+  - id: S3
+    label: Moderate
+    definition: Partial service impairment, where key functionalities via API or Web
+      Application are still operational, but some aspects are affected
+    response_time: Within 12 business hours
+    recovery_target: Resolution expected within several business days
+  - id: S4
+    label: Minor
+    definition: Minor issues in the API or Web Application, such as interface glitches or
+      minor bugs
+    response_time: Within 2 business days
+    recovery_target: Longer-term resolution
+status_page: https://status.coadjute.com
+status_page_platform: Atlassian Statuspage
+status_page_components:
+- Web App
+- Mobile App
+- Auth0 User Authentication
+status_page_note: |
+  No API component is published on the status page, even though the SLA document treats
+  API access as a Severity 1 surface — the partner API is covered contractually but is
+  not represented in public status reporting.
+changelog:
+  url: null
+  note: No dated API changelog or release notes are published. Product announcements
+    appear as blog posts under /resources.
+deprecated_operations: []
+retired_surfaces:
+- host: https://developer.coadjute.com
+  status: 502
+  note: |
+    Internet Archive snapshot 20210420143223 shows a working Drupal "Coadjute Devportal"
+    with an "Explore API Catalogue" link, a "Get Connected" guide and user registration.
+    The origin now fails on every path. Neither the catalogue nor the docs pages were
+    ever archived, so nothing could be recovered.
+- host: http://api.developer.coadjute.com
+  status: 0
+  note: Present in the Internet Archive CDX index (2023); no longer resolves.
+- host: http://portal.developer.coadjute.com
+  status: 0
+  note: Present in the Internet Archive CDX index (2023, 308); no longer resolves.

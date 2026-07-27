@@ -22,7 +22,7 @@ description: >-
   discovery document at auth.coadjute.com. Coadjute publishes no open data; the open
   property-data layer in its home market belongs to HM Land Registry and Ordnance Survey,
   not to Coadjute.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/groq.png
+image: https://www.coadjute.com/hubfs/Logo.svg
 tags:
 - Real Estate
 - United Kingdom
@@ -39,12 +39,34 @@ modified: '2026-07-26'
 specificationVersion: '0.19'
 apis: []
 common:
+- type: DomainSecurity
+  url: security/lifetise-domain-security.yml
 - type: Website
   url: https://www.coadjute.com/
 - type: Authentication
-  url: authentication/coadjute-openid-configuration.json
+  url: authentication/lifetise-authentication.yml
+- type: OpenIDConnectDiscovery
+  url: https://auth.coadjute.com/.well-known/openid-configuration
+- type: OAuthScopes
+  url: scopes/lifetise-scopes.yml
+- type: WellKnown
+  url: well-known/lifetise-well-known.yml
+- type: Conformance
+  url: conformance/lifetise-conformance.yml
+- type: Compliance
+  url: https://www.coadjute.com/our-technology
+- type: Lifecycle
+  url: lifecycle/lifetise-lifecycle.yml
+- type: LLMsTxt
+  url: llms/lifetise-llms.txt
 - type: StatusPage
   url: https://status.coadjute.com
+- type: SLA
+  url: https://www.coadjute.com/incident-severity-levels-and-slas
+- type: Support
+  url: https://www.coadjute.com/help-centre
+- type: Login
+  url: https://app.coadjute.com/
 - type: TermsOfService
   url: https://www.coadjute.com/coadjute-partner-terms-of-service
 - type: AcceptableUsePolicy

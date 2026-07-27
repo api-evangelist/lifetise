@@ -1,0 +1,97 @@
+generated: '2026-07-26'
+method: searched
+source: live probes of every Coadjute host reachable from outside the partner gate
+note: |
+  Coadjute serves no /.well-known/ discovery surface on its marketing host
+  (www.coadjute.com) and its API gateway (api.coadjute.com) authenticates even the
+  discovery paths, answering 401 "Access Denied" to every /.well-known/ request. The
+  only anonymous machine-readable discovery Coadjute publishes lives on its Auth0
+  identity tenant at auth.coadjute.com, which serves both an OpenID Connect discovery
+  document (OIDC Discovery 1.0) and an OAuth 2.0 Authorization Server Metadata
+  document (RFC 8414). No security.txt (RFC 9116) is published on any host.
+hosts:
+- host: https://auth.coadjute.com
+  role: identity provider (Auth0 tenant)
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: lifetise-openid-configuration.json
+    standard: OpenID Connect Discovery 1.0
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: lifetise-oauth-authorization-server.json
+    standard: RFC 8414
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    standard: RFC 9728
+  - path: /.well-known/security.txt
+    status: 404
+    standard: RFC 9116
+  - path: /.well-known/api-catalog
+    status: 404
+    standard: RFC 9727
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/mcp.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://www.coadjute.com
+  role: marketing site (HubSpot)
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/mcp.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: https://api.coadjute.com
+  role: partner API gateway (fully gated)
+  note: Every /.well-known/ path returns 401 "Access Denied" — the gateway authenticates
+    discovery itself, so no anonymous discovery is possible.
+  documents:
+  - path: /.well-known/security.txt
+    status: 401
+  - path: /.well-known/openid-configuration
+    status: 401
+  - path: /.well-known/oauth-authorization-server
+    status: 401
+  - path: /.well-known/api-catalog
+    status: 401
+  - path: /.well-known/ai-plugin.json
+    status: 401
+  - path: /.well-known/mcp.json
+    status: 401
+  - path: /.well-known/agent.json
+    status: 401
+- host: https://app.coadjute.com
+  role: customer web application (Coadjute Workspace SPA)
+  note: SPA origin returned 502 on every /.well-known/ path at probe time.
+  documents:
+  - path: /.well-known/security.txt
+    status: 502
+  - path: /.well-known/openid-configuration
+    status: 502
+security_txt:
+  published: false
+  probed:
+  - {url: 'https://www.coadjute.com/.well-known/security.txt', status: 404}
+  - {url: 'https://www.coadjute.com/security.txt', status: 404}
+  - {url: 'https://auth.coadjute.com/.well-known/security.txt', status: 404}
+  - {url: 'https://api.coadjute.com/.well-known/security.txt', status: 401}
+  note: |
+    Coadjute's Network Acceptable Use Policy carves out "Coadjute's published Bug Bounty
+    program" from its reverse-engineering prohibition, but no security.txt, disclosure
+    policy page or bug bounty landing page could be reached (/bug-bounty and
+    /responsible-disclosure both 404). The program is referenced contractually but is not
+    publicly discoverable.
