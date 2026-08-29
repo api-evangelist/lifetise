@@ -22,6 +22,17 @@ description: >-
   discovery document at auth.coadjute.com. Coadjute publishes no open data; the open
   property-data layer in its home market belongs to HM Land Registry and Ordnance Survey,
   not to Coadjute.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://www.coadjute.com/hubfs/Logo.svg
 tags:
 - Real-Estate
