@@ -49,7 +49,7 @@ accessModel:
   method: derived
 image: https://www.coadjute.com/hubfs/Logo.svg
 tags:
-- Real-Estate
+- Real Estate
 - United Kingdom
 - PropTech
 - Property Transactions
@@ -70,6 +70,7 @@ tags_raw:
 - Distributed Ledger
 - Estate Agents
 - Mortgage
+- Real-Estate
 created: '2026-07-26'
 modified: '2026-07-26'
 specificationVersion: '0.23'
