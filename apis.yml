@@ -72,10 +72,14 @@ tags_raw:
 - Mortgage
 - Real-Estate
 created: '2026-07-26'
-modified: '2026-07-26'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 apis: []
 common:
+- url: https://www.coadjute.com/resources/tag/insights
+  type: Blog
+- url: https://www.coadjute.com/resources/rss.xml
+  type: BlogRSS
 - type: DomainSecurity
   url: security/lifetise-domain-security.yml
 - type: Website
